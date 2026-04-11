@@ -17,8 +17,9 @@ jobs:
           port: 22
           script: |
             set -e
-            git config --global --add safe.directory /var/www/matchwall
-            cd /var/www/matchwall
-            git pull origin main
-            docker compose up -d --build
+            git config --global --add safe.directory /home/deploy/wall
+            cd /home/deploy/wall
+            git fetch origin main
+            git reset --hard origin/main
+            docker compose -f docker-compose.deploy.yml up -d --build
             docker image prune -f
