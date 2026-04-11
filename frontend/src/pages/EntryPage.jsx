@@ -32,12 +32,15 @@ export default function EntryPage({ onEnter }) {
         </div>
         <div className="entry-copy">
           <p className="eyebrow">Matchmaking Wall</p>
-          <h1 className="entry-title">相亲墙</h1>
-          <p className="entry-sub">输入现场口令，快速查看嘉宾资料与介绍</p>
+          <h1 className="entry-title">有缘簿</h1>
+          <blockquote className="entry-poem" aria-label="秦观 鹊桥仙">
+            <p className="entry-poem-line">金风玉露一相逢，</p>
+            <p className="entry-poem-line">便胜却人间无数。</p>
+            <cite className="entry-poem-cite">——秦观《鹊桥仙·纤云弄巧》</cite>
+          </blockquote>
         </div>
 
         <div className="entry-panel">
-          <label className="field-label" htmlFor="entry-code">入场口令</label>
           <input
             id="entry-code"
             className="entry-input"
@@ -48,9 +51,9 @@ export default function EntryPage({ onEnter }) {
             value={code}
             onChange={(e) => { setCode(e.target.value); setErr(""); }}
             onKeyDown={(e) => e.key === "Enter" && submit()}
-            aria-describedby={err ? "entry-error" : "entry-hint"}
+            aria-label="入场口令"
+            aria-describedby={err ? "entry-error" : undefined}
           />
-          <p className="field-hint" id="entry-hint">支持主办方发放的访问口令</p>
           <button className="entry-btn" onClick={submit} disabled={loading}>
             {loading ? "登录中..." : "进入查看"}
           </button>
