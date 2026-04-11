@@ -1,0 +1,18 @@
+services:
+  app:
+    build: .
+    image: wall-app:latest
+    container_name: wall-app
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./data:/data
+    expose:
+      - "8000"
+    networks:
+      - shared
+
+networks:
+  shared:
+    name: stock-compare_app
+    external: true

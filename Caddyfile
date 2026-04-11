@@ -1,0 +1,16 @@
+wall.dscenter.work {
+    encode gzip zstd
+
+    @uploads path /uploads/*
+    handle @uploads {
+        reverse_proxy app:8000
+    }
+
+    handle /api/* {
+        reverse_proxy app:8000
+    }
+
+    handle {
+        reverse_proxy app:8000
+    }
+}
