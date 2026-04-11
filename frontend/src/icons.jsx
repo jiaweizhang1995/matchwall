@@ -1,16 +1,31 @@
 export const IconMark = () => (
-  <svg aria-hidden="true" width="40" height="40" viewBox="0 0 40 40" fill="none">
-    <rect x="3" y="3" width="34" height="34" rx="17" fill="url(#mark-bg)" />
+  <svg aria-hidden="true" width="84" height="84" viewBox="0 0 40 40" fill="none">
+    {/* 银汉 — the Milky Way, a faint scatter beneath the bridge */}
+    <g fill="#C9476A">
+      <circle cx="6" cy="31" r="0.85" opacity="0.45" />
+      <circle cx="12" cy="30.3" r="0.75" opacity="0.5" />
+      <circle cx="19" cy="30.8" r="0.7" opacity="0.38" />
+      <circle cx="26" cy="30.3" r="0.75" opacity="0.5" />
+      <circle cx="33" cy="31" r="0.85" opacity="0.45" />
+    </g>
+    {/* 鹊桥 — the bridge of magpies, arcing from Vega to Altair */}
     <path
-      d="M20 13.2c1.88-2.41 5.27-2.86 7.64-.96 2.59 2.09 2.83 5.93.62 8.35L20 29l-8.26-8.41c-2.21-2.42-1.97-6.26.62-8.35 2.37-1.9 5.76-1.45 7.64.96Z"
-      fill="white"
+      d="M 7 21 Q 20 4 33 21"
+      stroke="#C9476A"
+      strokeWidth="1.9"
+      strokeLinecap="round"
+      fill="none"
     />
-    <defs>
-      <linearGradient id="mark-bg" x1="5" y1="4" x2="35" y2="36" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#D75C4B" />
-        <stop offset="1" stopColor="#C9476A" />
-      </linearGradient>
-    </defs>
+    {/* 织女星 Vega — smaller western star, 4-point sparkle at r=3.4 */}
+    <path
+      d="M 7 17.6 L 8.13 19.87 L 10.4 21 L 8.13 22.13 L 7 24.4 L 5.87 22.13 L 3.6 21 L 5.87 19.87 Z"
+      fill="#D75C4B"
+    />
+    {/* 牛郎星 Altair — larger eastern star, 4-point sparkle at r=4.2 */}
+    <path
+      d="M 33 16.8 L 34.4 19.6 L 37.2 21 L 34.4 22.4 L 33 25.2 L 31.6 22.4 L 28.8 21 L 31.6 19.6 Z"
+      fill="#D75C4B"
+    />
   </svg>
 );
 

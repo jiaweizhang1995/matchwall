@@ -10,7 +10,7 @@ from .routes import guests as guest_routes
 from .routes import tokens as token_routes
 from .routes import uploads as upload_routes
 
-app = FastAPI(title="Matchmaking Wall", version="1.0.0")
+app = FastAPI(title="Book of Fate", version="1.0.0")
 
 
 @app.on_event("startup")

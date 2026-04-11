@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { api } from "../api.js";
 import { saveAuth } from "../auth.js";
-import { IconMark } from "../icons.jsx";
+
+const titleChars = ["有", "缘", "簿"];
 
 export default function EntryPage({ onEnter }) {
   const [code, setCode] = useState("");
@@ -27,17 +28,19 @@ export default function EntryPage({ onEnter }) {
   return (
     <main className="page entry-page">
       <section className="entry">
-        <div className="entry-brand" aria-hidden="true">
-          <IconMark />
-        </div>
         <div className="entry-copy">
-          <p className="eyebrow">Matchmaking Wall</p>
-          <h1 className="entry-title">有缘簿</h1>
-          <blockquote className="entry-poem" aria-label="秦观 鹊桥仙">
-            <p className="entry-poem-line">金风玉露一相逢，</p>
-            <p className="entry-poem-line">便胜却人间无数。</p>
-            <cite className="entry-poem-cite">——秦观《鹊桥仙·纤云弄巧》</cite>
-          </blockquote>
+          <div className="entry-copy-frame">
+            <blockquote className="entry-poem" aria-label="秦观 鹊桥仙">
+              <p className="entry-poem-line">金风玉露一相逢，</p>
+              <p className="entry-poem-line">便胜却人间无数。</p>
+              <cite className="entry-poem-cite">——秦观《鹊桥仙·纤云弄巧》</cite>
+            </blockquote>
+            <h1 className="entry-title" aria-label="有缘簿">
+              {titleChars.map((char) => (
+                <span key={char}>{char}</span>
+              ))}
+            </h1>
+          </div>
         </div>
 
         <div className="entry-panel">
