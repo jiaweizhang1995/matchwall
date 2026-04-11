@@ -54,6 +54,9 @@ export const api = {
   updateToken: (id, body) => request("PUT", `/api/admin/tokens/${id}`, { body }),
   deleteToken: (id) => request("DELETE", `/api/admin/tokens/${id}`),
 
+  // admin password
+  changePassword: (body) => request("PUT", "/api/auth/password", { body }),
+
   // admin uploads
   uploadPhoto: (file) => {
     const fd = new FormData();

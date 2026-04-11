@@ -458,6 +458,10 @@ img {
   backdrop-filter: blur(18px);
 }
 
+.tabs--three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .tab {
   min-height: 42px;
   border-radius: 999px;

@@ -46,5 +46,11 @@ class TokenOut(BaseModel):
     created_at: int
 
 
+class ChangePasswordIn(BaseModel):
+    current_password: str = Field(min_length=1, max_length=128)
+    new_password: str = Field(min_length=4, max_length=128)
+    confirm_password: str = Field(min_length=4, max_length=128)
+
+
 class UploadOut(BaseModel):
     url: str

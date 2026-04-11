@@ -31,6 +31,11 @@ CREATE TABLE IF NOT EXISTS token_guests (
   FOREIGN KEY(token_id) REFERENCES tokens(id) ON DELETE CASCADE,
   FOREIGN KEY(guest_id) REFERENCES guests(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS config (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
 """
 
 

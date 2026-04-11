@@ -5,6 +5,98 @@ import GuestForm from "../components/GuestForm.jsx";
 import TokenForm from "../components/TokenForm.jsx";
 import { IconEdit, IconFemale, IconMale, IconPlus, IconUser } from "../icons.jsx";
 
+function PasswordForm({ showToast }) {
+  const [currentPw, setCurrentPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const canSave = currentPw.trim() && newPw.trim() && confirmPw.trim() && !saving;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!canSave) return;
+
+    if (newPw !== confirmPw) {
+      showToast("两次输入的新密码不一致");
+      return;
+    }
+    if (newPw.length < 4) {
+      showToast("新密码至少 4 个字符");
+      return;
+    }
+    if (newPw === currentPw) {
+      showToast("新密码不能与当前密码相同");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await api.changePassword({
+        current_password: currentPw,
+        new_password: newPw,
+        confirm_password: confirmPw,
+      });
+      showToast("密码修改成功");
+      setCurrentPw("");
+      setNewPw("");
+      setConfirmPw("");
+    } catch (err) {
+      showToast(err.detail || "修改失败");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <form className="form-shell" onSubmit={handleSubmit}>
+      <section className="form-section">
+        <p className="section-title">修改管理员密码</p>
+        <p className="section-sub">修改后下次登录需要使用新密码</p>
+
+        <div className="field">
+          <label>当前密码</label>
+          <input
+            type="password"
+            placeholder="请输入当前密码"
+            value={currentPw}
+            onChange={(e) => setCurrentPw(e.target.value)}
+            autoComplete="current-password"
+          />
+        </div>
+
+        <div className="field">
+          <label>新密码</label>
+          <input
+            type="password"
+            placeholder="请输入新密码（至少 4 位）"
+            value={newPw}
+            onChange={(e) => setNewPw(e.target.value)}
+            autoComplete="new-password"
+          />
+        </div>
+
+        <div className="field">
+          <label>确认新密码</label>
+          <input
+            type="password"
+            placeholder="请再次输入新密码"
+            value={confirmPw}
+            onChange={(e) => setConfirmPw(e.target.value)}
+            autoComplete="new-password"
+          />
+        </div>
+      </section>
+
+      <div className="form-footer">
+        <button className="form-btn" type="submit" disabled={!canSave}>
+          {saving ? "保存中..." : "保存密码"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 export default function AdminPanel({ onLogout }) {
   const [tab, setTab] = useState("guests");
   const [guests, setGuests] = useState([]);
@@ -139,7 +231,7 @@ export default function AdminPanel({ onLogout }) {
             </div>
           </section>
 
-          <div className="tabs" role="tablist" aria-label="后台功能切换">
+          <div className="tabs tabs--three" role="tablist" aria-label="后台功能切换">
             <button
               className={`tab ${tab === "guests" ? "active" : ""}`}
               onClick={() => setTab("guests")}
@@ -159,6 +251,16 @@ export default function AdminPanel({ onLogout }) {
               id="admin-tokens-tab"
             >
               口令管理
+            </button>
+            <button
+              className={`tab ${tab === "settings" ? "active" : ""}`}
+              onClick={() => setTab("settings")}
+              role="tab"
+              aria-selected={tab === "settings"}
+              aria-controls="admin-settings-panel"
+              id="admin-settings-tab"
+            >
+              设置
             </button>
           </div>
 
@@ -275,6 +377,12 @@ export default function AdminPanel({ onLogout }) {
                   ))}
                 </div>
               )}
+            </section>
+          )}
+
+          {!loading && tab === "settings" && (
+            <section role="tabpanel" id="admin-settings-panel" aria-labelledby="admin-settings-tab">
+              <PasswordForm showToast={showToast} />
             </section>
           )}
         </section>
