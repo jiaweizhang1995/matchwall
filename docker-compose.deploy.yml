@@ -10,9 +10,28 @@ services:
     expose:
       - "8000"
     networks:
-      - shared
+      - web
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: wall-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    networks:
+      - web
+
+volumes:
+  caddy_data:
+  caddy_config:
 
 networks:
-  shared:
-    name: stock-compare_app
-    external: true
+  web:
+    driver: bridge
